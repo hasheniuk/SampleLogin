@@ -1,12 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Hello</title>
-    <link href="css/reset.min.css" rel="stylesheet">
-    <link href="css/styles.css" rel="stylesheet">
+  <meta charset="UTF-8">
+  <title>Log In</title>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" rel="stylesheet">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css" rel="stylesheet">
+  <link href="css/styles.css" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.2.0.min.js"></script>
+  <script src='https://www.google.com/recaptcha/api.js'></script>
+  <script src="js/scripts.js"></script>
 </head>
-<body>
-    <h1>Hello</h1>
+
+<body class="text-muted">
+
+  <section id="signin-section" class="signin-section container">
+    <div class="container signin-container text-center">
+      <form class="form-signin" method="post">
+        <h1 class="form-signin-heading">Sign In</h1>
+        <small class="connect-msg">Connect with your favorite social network</small>
+        <p>
+          <a class="btn btn-primary social-login-btn social-facebook" href="/auth/facebook">
+            <i class="fa fa-facebook"></i>
+          </a>
+          <a class="btn btn-primary social-login-btn social-twitter" href="/auth/twitter">
+            <i class="fa fa-twitter"></i>
+          </a>
+          <a class="btn btn-primary social-login-btn social-linkedin" href="/auth/linkedin">
+            <i class="fa fa-linkedin"></i>
+          </a>
+          <a class="btn btn-primary social-login-btn social-google" href="/auth/google">
+            <i class="fa fa-google-plus"></i>
+          </a>
+        </p>
+        <div class="line">
+          <span class="line-content">OR</span>
+        </div>
+        <br>
+        <div class="input-group margin-bottom-sm">
+          <span class="input-group-addon">
+            <i class="fa fa-envelope-o fa-fw"></i>
+          </span>
+          <input name="email" type="email" class="form-control" placeholder="Email" autofocus>
+        </div>
+        <div class="input-group margin-bottom-sm">
+          <span class="input-group-addon">
+            <i class="fa fa-key fa-fw"></i>
+          </span>
+          <input name="password" type="password" class="form-control" placeholder="Password">
+        </div>
+        <button type="submit" class="btn btn-primary btn-lg btn-center btn-signin">Sign in</button>
+        <small class="create-account">
+          <span>Don't have an account yet? </span>
+          <button type="button" class="btn btn-sm btn-default" onclick="toggleSections()"> Sign Up </button>
+        </small>
+      </form>
+    </div>
+  </section>
+
+  <section id="signup-section" class="signup-section container" style="display: none">
+    <div class="container signup-container text-center">
+      <form class="form-signup" method="post">
+        <h1 class="form-signup-heading">Sign Up</h1>
+        <small class="connect-msg">Create account:</small>
+        <div class="input-group margin-bottom-sm">
+          <span class="input-group-addon">
+            <i class="fa fa-envelope-o fa-fw"></i>
+          </span>
+          <input name="email" type="email" class="form-control" placeholder="Email" autofocus>
+        </div>
+        <div class="input-group margin-bottom-sm">
+          <span class="input-group-addon">
+            <i class="fa fa-key fa-fw"></i>
+          </span>
+          <input name="password" type="password" class="form-control" placeholder="Password">
+        </div>
+        <div class="input-group margin-bottom-sm">
+          <span class="input-group-addon">
+            <i class="fa fa-key fa-fw"></i>
+          </span>
+          <input name="passwordConfirm" type="password" class="form-control" placeholder="Confirm password">
+        </div>
+        <div class="g-recaptcha" data-sitekey="6Lf7ghkUAAAAAHA1qsuYMC41aoAhIepNL0ipVsrn"></div>
+        <button class="btn btn-primary btn-lg btn-center btn-signin" type="submit">Sign Up</button>
+        <small class="create-account">
+          <span>Already have an account? </span>
+          <button type="button" class="btn btn-sm btn-default" onclick="toggleSections()"> Sign In </button>
+        </small>
+      </form>
+    </div>
+  </section>
+
 </body>
+
 </html>
