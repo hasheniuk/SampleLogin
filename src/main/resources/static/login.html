@@ -16,7 +16,7 @@
 
   <section id="signin-section" class="signin-section container">
     <div class="container signin-container text-center">
-      <form class="form-signin" method="post">
+      <form class="form-signin" method="post" onsubmit="return validateSigninForm(this);">
         <h1 class="form-signin-heading">Sign In</h1>
         <small class="connect-msg">Connect with your favorite social network</small>
         <p>
@@ -41,14 +41,18 @@
           <span class="input-group-addon">
             <i class="fa fa-envelope-o fa-fw"></i>
           </span>
-          <input name="email" type="email" class="form-control" placeholder="Email" autofocus>
+          <input name="email" type="text" class="form-control"
+                 placeholder="Email" onblur="validateEmail($(this))" autofocus>
         </div>
+        <p class="error"></p>
         <div class="input-group margin-bottom-sm">
           <span class="input-group-addon">
             <i class="fa fa-key fa-fw"></i>
           </span>
-          <input name="password" type="password" class="form-control" placeholder="Password">
+          <input name="password" type="password" class="form-control"
+                 placeholder="Password" onblur="validatePassword($(this))">
         </div>
+        <p class="error"></p>
         <button type="submit" class="btn btn-primary btn-lg btn-center btn-signin">Sign in</button>
         <small class="create-account">
           <span>Don't have an account yet? </span>
@@ -60,27 +64,33 @@
 
   <section id="signup-section" class="signup-section container" style="display: none">
     <div class="container signup-container text-center">
-      <form class="form-signup" method="post">
+      <form class="form-signup" method="post" onsubmit="return validateSignupForm(this);">
         <h1 class="form-signup-heading">Sign Up</h1>
         <small class="connect-msg">Create account:</small>
         <div class="input-group margin-bottom-sm">
           <span class="input-group-addon">
             <i class="fa fa-envelope-o fa-fw"></i>
           </span>
-          <input name="email" type="email" class="form-control" placeholder="Email" autofocus>
+          <input name="email" type="text" class="form-control"
+                 placeholder="Email" onblur="validateEmail($(this))" autofocus>
         </div>
+        <p class="error"></p>
         <div class="input-group margin-bottom-sm">
           <span class="input-group-addon">
             <i class="fa fa-key fa-fw"></i>
           </span>
-          <input name="password" type="password" class="form-control" placeholder="Password">
+          <input id="sign-up-password" name="password" type="password" class="form-control"
+                 placeholder="Password" onblur="validatePassword($(this))">
         </div>
+        <p class="error"></p>
         <div class="input-group margin-bottom-sm">
           <span class="input-group-addon">
             <i class="fa fa-key fa-fw"></i>
           </span>
-          <input name="passwordConfirm" type="password" class="form-control" placeholder="Confirm password">
+          <input name="confirmPassword" type="password" class="form-control"
+                 placeholder="Confirm password" onblur="validateConfirmation($('#sign-up-password'), $(this))">
         </div>
+        <p class="error"></p>
         <div class="g-recaptcha" data-sitekey="6Lf7ghkUAAAAAHA1qsuYMC41aoAhIepNL0ipVsrn"></div>
         <button class="btn btn-primary btn-lg btn-center btn-signin" type="submit">Sign Up</button>
         <small class="create-account">

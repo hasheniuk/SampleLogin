@@ -169,3 +169,31 @@
 .form-signup-heading {
     margin-bottom: .3rem;
 }
+a.disabled {
+    pointer-events: none;
+}
+.error {
+    display: none;
+    color: crimson;
+    float: left;
+    font-size: 0.8em;
+    margin-bottom: 10px;
+}
+.g-recaptcha div {
+    height: auto !important;
+}
+.not-valid *, .not-valid input:focus {
+    color: crimson;
+}
+.not-valid input::-webkit-input-placeholder {
+    color: crimson;
+}
+.not-valid input::-moz-placeholder {
+    color: crimson;
+}
+.not-valid input:-moz-placeholder {
+    color: crimson;
+}
+.not-valid input:-ms-input-placeholder {
+    color: crimson;
+}
