@@ -1,5 +1,20 @@
 "use strict";
 
+$(function () {
+
+    $(document).on("keyup", ".not-valid input[name='email']", function () {
+        validateEmail($(this));
+    });
+
+    $(document).on("keyup", ".not-valid input[name='password']", function () {
+        validatePassword($(this));
+    });
+
+    $(document).on("keyup", ".not-valid input[name='confirmPassword']", function () {
+        validateConfirmation($("input[name='password']:eq(1)"), $(this));
+    });
+});
+
 function toggleSections() {
     toggleControls(false);
     $('#signin-section, #signup-section').fadeToggle("slow", "swing", function() {
