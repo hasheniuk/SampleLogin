@@ -1,3 +1,13 @@
-logging:
-    level:
-        net.samplelogin: debug
+logging.level.net.samplelogin: debug
+spring.thymeleaf.mode: LEGACYHTML5
+spring.social:
+    auto_connection_views: true
+    facebook:
+        appId: 1798033873853564
+        appSecret: d85fe8341e5dbca192fe6093336bf0ea
+    twitter:
+        appId: c5DR7jVKwvgdBE7uxSF2SZONs
+        appSecret: Z3TRfr7URzyimHiKYAjnwOBnz20AXq6anzLSMYFtFSDPTROlvf
+    linkedin:
+        appId: 78g1cfq6ewnbju
+        appSecret: qQgqclTNx7kkPu0R

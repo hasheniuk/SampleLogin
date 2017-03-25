@@ -94,3 +94,19 @@ function toggleError(field, message, valid) {
     valid ? error.hide() : error.show();
     field.parent().toggleClass("not-valid", !valid);
 }
+
+function connectFacebook() {
+    alert("Not supported");
+}
+
+function connectTwitter() {
+    $("<form action='/connect/twitter' method='post'></form>").submit();
+}
+
+function connectLinkedIn() {
+    $("<form action='/connect/linkedin' method='post'></form>").submit();
+}
+
+function connectGoogle() {
+    alert("Not supported");
+}

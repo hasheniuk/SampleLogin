@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
   <meta charset="UTF-8">
@@ -20,18 +20,18 @@
         <h1 class="form-signin-heading">Sign In</h1>
         <small class="connect-msg">Connect with your favorite social network</small>
         <p>
-          <a class="btn btn-primary social-login-btn social-facebook" href="/auth/facebook">
+          <button type="button" onclick="connectFacebook()" class="btn btn-primary social-login-btn social-facebook">
             <i class="fa fa-facebook"></i>
-          </a>
-          <a class="btn btn-primary social-login-btn social-twitter" href="/auth/twitter">
+          </button>
+          <button type="button" onclick="connectTwitter()" class="btn btn-primary social-login-btn social-twitter">
             <i class="fa fa-twitter"></i>
-          </a>
-          <a class="btn btn-primary social-login-btn social-linkedin" href="/auth/linkedin">
+          </button>
+          <button type="button" onclick="connectLinkedIn()" class="btn btn-primary social-login-btn social-linkedin">
             <i class="fa fa-linkedin"></i>
-          </a>
-          <a class="btn btn-primary social-login-btn social-google" href="/auth/google">
+          </button>
+          <button type="button" onclick="connectGoogle()" class="btn btn-primary social-login-btn social-google">
             <i class="fa fa-google-plus"></i>
-          </a>
+          </button>
         </p>
         <div class="line">
           <span class="line-content">OR</span>

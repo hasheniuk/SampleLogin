@@ -1,38 +1,100 @@
 package net.samplelogin.controller;
 
-import net.samplelogin.util.ClassUtils;
-import org.slf4j.*;
+import net.samplelogin.service.ConnectionService;
+import net.samplelogin.user.TwitterProfileWithEmail;
+import net.samplelogin.util.Assert;
+import net.samplelogin.util.FacebookUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.social.facebook.api.Facebook;
+import org.springframework.social.linkedin.api.LinkedIn;
+import org.springframework.social.linkedin.api.LinkedInProfile;
+import org.springframework.social.twitter.api.Twitter;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.annotation.PostConstruct;
+import javax.inject.Inject;
+import java.lang.invoke.MethodHandles;
 
 @Controller
 @RequestMapping("/auth")
 public class AuthController {
-    private static final Logger logger = LoggerFactory.getLogger(ClassUtils.getCurrentClassName());
+    private static final Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
-    private static final String INDEX_REDIRECT = "redirect:/";
+    private ConnectionService connectionService;
+    private Facebook facebook;
+    private Twitter twitter;
+    private LinkedIn linkedIn;
+
+    @PostConstruct
+    public void init() throws ReflectiveOperationException {
+        FacebookUtils.excludeProfileFields("bio");
+    }
+
+    @GetMapping
+    public String getView() {
+        return "login";
+    }
 
     @GetMapping("/facebook")
     public String authFacebook() {
-        logger.debug("facebook auth");
-        return INDEX_REDIRECT;
+        throw new UnsupportedOperationException();
+//        if (connectionService.isConnected(Facebook.class)) {
+//            return "redirect:/signin";
+//        }
+//        User facebookUser = facebook.userOperations().getUserProfile();
+//        logger.debug("Facebook user email: {}", facebookUser.getEmail());
+//        return PROFILE_REDIRECT;
     }
 
     @GetMapping("/twitter")
     public String authTwitter() {
-        logger.debug("twitter auth");
-        return INDEX_REDIRECT;
+        if (!connectionService.isTwitterConnected()) {
+            return Redirections.AUTH;
+        }
+        TwitterProfileWithEmail twitterProfile = twitter.restOperations().getForObject("https://api.twitter.com/1.1/account/verify_credentials.json?include_email=true", TwitterProfileWithEmail.class);
+        logger.debug("Twitter user email: {}", twitterProfile.getEmail());
+        return Redirections.PROFILE;
     }
 
     @GetMapping("/linkedin")
     public String authLinkedIn() {
-        logger.debug("linkedin auth");
-        return INDEX_REDIRECT;
+        if (!connectionService.isLinkedInConnected()) {
+            return Redirections.AUTH;
+        }
+        LinkedInProfile linkedInProfile = linkedIn.profileOperations().getUserProfile();
+        logger.debug("LinkedIn user email: {}", linkedInProfile.getEmailAddress());
+        return Redirections.PROFILE;
     }
 
     @GetMapping("/google")
     public String authGoogle() {
-        logger.debug("google auth");
-        return INDEX_REDIRECT;
+        throw new UnsupportedOperationException();
+    }
+
+    @Inject
+    public void setConnectionService(ConnectionService connectionService) {
+        Assert.notNull(connectionService, ConnectionService.class);
+        this.connectionService = connectionService;
+    }
+
+    @Inject
+    public void setFacebook(Facebook facebook) {
+        Assert.notNull(facebook, Facebook.class);
+        this.facebook = facebook;
+    }
+
+    @Inject
+    public void setTwitter(Twitter twitter) {
+        Assert.notNull(twitter, Twitter.class);
+        this.twitter = twitter;
+    }
+
+    @Inject
+    public void setLinkedIn(LinkedIn linkedIn) {
+        Assert.notNull(linkedIn, LinkedIn.class);
+        this.linkedIn = linkedIn;
     }
 }
