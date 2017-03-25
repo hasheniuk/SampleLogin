@@ -3,8 +3,10 @@ spring.thymeleaf.mode: LEGACYHTML5
 spring.social:
     auto_connection_views: true
     facebook:
-        appId: 1798033873853564
-        appSecret: d85fe8341e5dbca192fe6093336bf0ea
+#        appId: 1798033873853564
+#        appSecret: d85fe8341e5dbca192fe6093336bf0ea
+        appId: 402926243408451
+        appSecret: 08fd034a45d214e522e1a43f799d980b
     twitter:
         appId: c5DR7jVKwvgdBE7uxSF2SZONs
         appSecret: Z3TRfr7URzyimHiKYAjnwOBnz20AXq6anzLSMYFtFSDPTROlvf

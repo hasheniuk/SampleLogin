@@ -96,7 +96,9 @@ function toggleError(field, message, valid) {
 }
 
 function connectFacebook() {
-    alert("Not supported");
+    $(  "<form action='/connect/facebook' method='post'>" +
+            "<input name='scope' value='email'>" +
+        "</form>").submit();
 }
 
 function connectTwitter() {
@@ -108,5 +110,5 @@ function connectLinkedIn() {
 }
 
 function connectGoogle() {
-    alert("Not supported");
+    alert("Not supported yet");
 }

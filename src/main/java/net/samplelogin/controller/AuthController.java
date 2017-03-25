@@ -7,6 +7,7 @@ import net.samplelogin.util.FacebookUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.social.facebook.api.Facebook;
+import org.springframework.social.facebook.api.User;
 import org.springframework.social.linkedin.api.LinkedIn;
 import org.springframework.social.linkedin.api.LinkedInProfile;
 import org.springframework.social.twitter.api.Twitter;
@@ -35,18 +36,17 @@ public class AuthController {
 
     @GetMapping
     public String getView() {
-        return "login";
+        return Views.LOGIN;
     }
 
     @GetMapping("/facebook")
     public String authFacebook() {
-        throw new UnsupportedOperationException();
-//        if (connectionService.isConnected(Facebook.class)) {
-//            return "redirect:/signin";
-//        }
-//        User facebookUser = facebook.userOperations().getUserProfile();
-//        logger.debug("Facebook user email: {}", facebookUser.getEmail());
-//        return PROFILE_REDIRECT;
+        if (!connectionService.isConnected(Facebook.class)) {
+            return Redirections.AUTH;
+        }
+        User facebookUser = facebook.userOperations().getUserProfile();
+        logger.debug("Facebook user email: {}", facebookUser.getEmail());
+        return Redirections.PROFILE;
     }
 
     @GetMapping("/twitter")
