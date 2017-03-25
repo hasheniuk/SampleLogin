@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/profile")
 public class ProfileController {
 
+    //TODO logout
+
     @GetMapping
     public String getView() {
         return Views.PROFILE;

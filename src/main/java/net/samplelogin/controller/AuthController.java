@@ -8,6 +8,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.social.facebook.api.Facebook;
 import org.springframework.social.facebook.api.User;
+import org.springframework.social.google.api.Google;
+import org.springframework.social.google.api.plus.Person;
 import org.springframework.social.linkedin.api.LinkedIn;
 import org.springframework.social.linkedin.api.LinkedInProfile;
 import org.springframework.social.twitter.api.Twitter;
@@ -28,6 +30,7 @@ public class AuthController {
     private Facebook facebook;
     private Twitter twitter;
     private LinkedIn linkedIn;
+    private Google google;
 
     @PostConstruct
     public void init() throws ReflectiveOperationException {
@@ -38,6 +41,8 @@ public class AuthController {
     public String getView() {
         return Views.LOGIN;
     }
+
+    // TODO catch HttpClientErrorException and log
 
     @GetMapping("/facebook")
     public String authFacebook() {
@@ -71,7 +76,12 @@ public class AuthController {
 
     @GetMapping("/google")
     public String authGoogle() {
-        throw new UnsupportedOperationException();
+        if (!connectionService.isConnected(Google.class)) {
+            return Redirections.AUTH;
+        }
+        Person person = google.plusOperations().getGoogleProfile();
+        logger.debug("Google person email: {}", person.getAccountEmail());
+        return Redirections.PROFILE;
     }
 
     @Inject
@@ -96,5 +106,11 @@ public class AuthController {
     public void setLinkedIn(LinkedIn linkedIn) {
         Assert.notNull(linkedIn, LinkedIn.class);
         this.linkedIn = linkedIn;
+    }
+
+    @Inject
+    public void setGoogle(Google google) {
+        Assert.notNull(google, Google.class);
+        this.google = google;
     }
 }

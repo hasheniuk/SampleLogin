@@ -13,3 +13,7 @@ spring.social:
     linkedin:
         appId: 78g1cfq6ewnbju
         appSecret: qQgqclTNx7kkPu0R
+    google:
+        appId: 366063999039-3s0m207ao69okpuctn2qli66kred3s2o.apps.googleusercontent.com
+        appSecret: DxkZQbUhXw0TL7NPxkKIj3sy
+

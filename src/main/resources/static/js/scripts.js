@@ -110,5 +110,7 @@ function connectLinkedIn() {
 }
 
 function connectGoogle() {
-    alert("Not supported yet");
+    $(  "<form action='/connect/google' method='post'>" +
+            "<input name='scope' value= 'email https://www.googleapis.com/auth/plus.login'>" +
+        "</form>").submit();
 }
