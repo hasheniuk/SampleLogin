@@ -1,4 +1,4 @@
-package net.samplelogin.user;
+package net.samplelogin.util;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.social.twitter.api.TwitterProfile;

@@ -1,5 +1,7 @@
 logging.level.net.samplelogin: debug
+
 spring.thymeleaf.mode: LEGACYHTML5
+
 spring.social:
     auto_connection_views: true
     facebook:
@@ -17,3 +19,10 @@ spring.social:
         appId: 366063999039-3s0m207ao69okpuctn2qli66kred3s2o.apps.googleusercontent.com
         appSecret: DxkZQbUhXw0TL7NPxkKIj3sy
 
+spring.datasource:
+    url: jdbc:h2:mem:sample_login
+    driverClassName: org.h2.Driver
+    username: sa
+    password:
+
+spring.jpa.database-platform: org.hibernate.dialect.H2Dialect

@@ -16,9 +16,9 @@ public class IndexController {
     @GetMapping
     public String redirect() {
         if (!connectionService.isAnyConnected()) {
-            return Redirections.AUTH;
+            return Redirects.AUTH;
         }
-        return Redirections.PROFILE;
+        return Redirects.PROFILE;
     }
 
     @Inject

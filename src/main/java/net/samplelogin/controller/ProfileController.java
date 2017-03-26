@@ -13,4 +13,5 @@ public class ProfileController {
     public String getView() {
         return Views.PROFILE;
     }
+
 }

@@ -20,6 +20,6 @@ public class ConnectControllerExtended extends ConnectController {
     @Override
     protected String connectedView(String providerId) {
         logger.debug("Redirected provider: {} to auth controller", providerId);
-        return Redirections.AUTH + "/" + providerId;
+        return Redirects.AUTH + "/" + providerId;
     }
 }

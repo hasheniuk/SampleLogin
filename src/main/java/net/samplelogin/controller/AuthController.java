@@ -1,7 +1,7 @@
 package net.samplelogin.controller;
 
 import net.samplelogin.service.ConnectionService;
-import net.samplelogin.user.TwitterProfileWithEmail;
+import net.samplelogin.util.TwitterProfileWithEmail;
 import net.samplelogin.util.Assert;
 import net.samplelogin.util.FacebookUtils;
 import org.slf4j.Logger;
@@ -47,41 +47,41 @@ public class AuthController {
     @GetMapping("/facebook")
     public String authFacebook() {
         if (!connectionService.isConnected(Facebook.class)) {
-            return Redirections.AUTH;
+            return Redirects.AUTH;
         }
         User facebookUser = facebook.userOperations().getUserProfile();
         logger.debug("Facebook user email: {}", facebookUser.getEmail());
-        return Redirections.PROFILE;
+        return Redirects.PROFILE;
     }
 
     @GetMapping("/twitter")
     public String authTwitter() {
         if (!connectionService.isTwitterConnected()) {
-            return Redirections.AUTH;
+            return Redirects.AUTH;
         }
         TwitterProfileWithEmail twitterProfile = twitter.restOperations().getForObject("https://api.twitter.com/1.1/account/verify_credentials.json?include_email=true", TwitterProfileWithEmail.class);
         logger.debug("Twitter user email: {}", twitterProfile.getEmail());
-        return Redirections.PROFILE;
+        return Redirects.PROFILE;
     }
 
     @GetMapping("/linkedin")
     public String authLinkedIn() {
         if (!connectionService.isLinkedInConnected()) {
-            return Redirections.AUTH;
+            return Redirects.AUTH;
         }
         LinkedInProfile linkedInProfile = linkedIn.profileOperations().getUserProfile();
         logger.debug("LinkedIn user email: {}", linkedInProfile.getEmailAddress());
-        return Redirections.PROFILE;
+        return Redirects.PROFILE;
     }
 
     @GetMapping("/google")
     public String authGoogle() {
         if (!connectionService.isConnected(Google.class)) {
-            return Redirections.AUTH;
+            return Redirects.AUTH;
         }
         Person person = google.plusOperations().getGoogleProfile();
         logger.debug("Google person email: {}", person.getAccountEmail());
-        return Redirections.PROFILE;
+        return Redirects.PROFILE;
     }
 
     @Inject

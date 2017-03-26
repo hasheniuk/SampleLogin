@@ -1,8 +1,8 @@
 package net.samplelogin.controller;
 
-public final class Redirections {
+public final class Redirects {
     public static final String AUTH = "redirect:/auth";
     public static final String PROFILE = "redirect:/profile";
 
-    private Redirections() {}
+    private Redirects() {}
 }
