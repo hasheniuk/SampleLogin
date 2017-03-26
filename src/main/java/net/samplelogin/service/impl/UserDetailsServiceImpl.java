@@ -34,6 +34,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             logger.error(e.getMessage(), e);
             throw e;
         }
+        logger.debug("Found user: {}", appUser.getEmail());
         return User.withUsername(appUser.getEmail())
                 .password(appUser.getPassword())
                 .disabled(false)
