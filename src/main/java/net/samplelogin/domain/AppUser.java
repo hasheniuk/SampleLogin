@@ -41,7 +41,7 @@ public class AppUser {
         this.password = password;
     }
 
-    @Column(name = "cteated_at", nullable = false)
+    @Column(name = "created_at", nullable = false)
     public LocalDate getCreatedAt() {
         return createdAt;
     }

@@ -15,15 +15,13 @@ import java.lang.invoke.MethodHandles;
 import java.time.LocalDate;
 
 @Service
-@Transactional(readOnly = true)
+@Transactional
 public class AppUserServiceImpl implements AppUserService {
     private static final Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
-
 
     private AppUserRepository appUserRepository;
 
     @Override
-    @Transactional(readOnly = false)
     public AppUser register(RegistrationForm form) {
         Assert.notNull(form, RegistrationForm.class);
         if (exists(form.getEmail())) {

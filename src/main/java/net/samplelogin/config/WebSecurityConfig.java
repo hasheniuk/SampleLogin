@@ -1,12 +1,15 @@
 package net.samplelogin.config;
 
+import net.samplelogin.service.impl.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 @Configuration
 @EnableWebSecurity
@@ -20,7 +23,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and()
             .formLogin()
-                .defaultSuccessUrl("/profile") // TODO add failure url and view
+                .defaultSuccessUrl("/profile") // TODO add failure url
                 .loginPage("/auth")
                 .usernameParameter("email")
                 .passwordParameter("password")
@@ -40,7 +43,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth
-            .inMemoryAuthentication()
-                .withUser("user@mail.com").password("123456@q").roles("USER");
+            .userDetailsService(userDetailsService);
     }
+
+    @Autowired
+    private UserDetailsService userDetailsService;
+
 }
