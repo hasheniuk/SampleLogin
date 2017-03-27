@@ -18,8 +18,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        // TODO remove some ant matchers after integration security with social
         http.authorizeRequests()
-                .antMatchers("/", "/css/*", "/js/*").permitAll()
+                .antMatchers("/", "/css/*", "/js/*", "/connect/*", "/auth/*", "/profile").permitAll()
                 .anyRequest().authenticated()
                 .and()
             .formLogin()
@@ -46,6 +47,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Inject
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        Assert.notNull(auth, AuthenticationManagerBuilder.class);
         auth.userDetailsService(userDetailsService);
     }
 }

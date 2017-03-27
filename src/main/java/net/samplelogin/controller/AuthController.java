@@ -1,9 +1,9 @@
 package net.samplelogin.controller;
 
 import net.samplelogin.service.ConnectionService;
-import net.samplelogin.util.TwitterProfileWithEmail;
 import net.samplelogin.util.Assert;
 import net.samplelogin.util.FacebookUtils;
+import net.samplelogin.util.TwitterProfileWithEmail;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.social.facebook.api.Facebook;

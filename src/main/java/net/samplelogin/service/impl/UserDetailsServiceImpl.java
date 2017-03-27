@@ -27,15 +27,18 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     private AppUserRepository appUserRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String email) {
         AppUser appUser = appUserRepository.findByEmail(email);
+        return toUserDetails(appUser, email);
+    }
+
+    private UserDetails toUserDetails(AppUser appUser, String email) {
         if (appUser == null) {
             RuntimeException e = new UsernameNotFoundException("No user found with username: " + email);
             logger.error(e.getMessage(), e);
             throw e;
         }
-        logger.debug("Found user: {}", appUser.getEmail());
-        return User.withUsername(appUser.getEmail())
+        UserDetails userDetails = User.withUsername(appUser.getEmail())
                 .password(appUser.getPassword())
                 .disabled(false)
                 .accountExpired(false)
@@ -43,6 +46,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 .accountLocked(false)
                 .authorities(getAuthorities(new ArrayList<>())) // TODO authorities
                 .build();
+        logger.debug("Converted to UserDetails: {}", userDetails.getUsername());
+        return userDetails;
     }
 
     private static List<GrantedAuthority> getAuthorities (List<String> roles) {

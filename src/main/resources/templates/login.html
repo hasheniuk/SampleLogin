@@ -15,15 +15,24 @@
 <body class="text-muted">
 
   <section id="signin-section" class="signin-section container">
+    <div class="dummy-forms">
+      <form id="facebook-connect" th:action='@{/connect/facebook}' method='post'>
+        <input name='scope' value='email'>
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+      </form>
+      <form id="twitter-connect" th:action='@{/connect/twitter}' method='post'>
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+      </form>
+    </div>
     <div class="container signin-container text-center">
       <form class="form-signin" method="post" th:action="@{/auth}+'?'+${_csrf.parameterName}+'='+${_csrf.token}" onsubmit="return validateSigninForm(this);">
         <h1 class="form-signin-heading">Sign In</h1>
         <small class="connect-msg">Connect with your favorite social network</small>
         <p>
-          <button type="button" onclick="connectFacebook()" class="btn btn-primary social-login-btn social-facebook">
+          <button type="submit" form="facebook-connect" class="btn btn-primary social-login-btn social-facebook">
             <i class="fa fa-facebook"></i>
           </button>
-          <button type="button" onclick="connectTwitter()" class="btn btn-primary social-login-btn social-twitter">
+          <button type="submit" form="twitter-connect" class="btn btn-primary social-login-btn social-twitter">
             <i class="fa fa-twitter"></i>
           </button>
           <button type="button" onclick="connectLinkedIn()" class="btn btn-primary social-login-btn social-linkedin">

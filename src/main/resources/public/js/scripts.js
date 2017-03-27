@@ -95,12 +95,6 @@ function toggleError(field, message, valid) {
     field.parent().toggleClass("not-valid", !valid);
 }
 
-function connectFacebook() {
-    $(  "<form action='/connect/facebook' method='post'>" +
-            "<input name='scope' value='email'>" +
-        "</form>").submit();
-}
-
 function connectTwitter() {
     $("<form action='/connect/twitter' method='post'></form>").submit();
 }
