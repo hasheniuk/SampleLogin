@@ -1,8 +1,11 @@
 package net.samplelogin.controller;
 
+import net.samplelogin.domain.AppUser;
+import net.samplelogin.service.AppUserService;
 import net.samplelogin.service.ConnectionService;
 import net.samplelogin.util.Assert;
 import net.samplelogin.util.FacebookUtils;
+import net.samplelogin.util.SecurityUtils;
 import net.samplelogin.util.TwitterProfileWithEmail;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,6 +29,8 @@ import java.lang.invoke.MethodHandles;
 public class AuthController {
     private static final Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
+    private AppUserService appUserService;
+
     private ConnectionService connectionService;
     private Facebook facebook;
     private Twitter twitter;
@@ -39,23 +44,32 @@ public class AuthController {
 
     @GetMapping
     public String getView() {
+        if (SecurityUtils.isAuthenticated()) {
+            return Redirects.PROFILE;
+        }
         return Views.LOGIN;
     }
 
-    // TODO catch HttpClientErrorException and log
-
     @GetMapping("/facebook")
     public String authFacebook() {
+        if (SecurityUtils.isAuthenticated()) {
+            return Redirects.PROFILE;
+        }
         if (!connectionService.isConnected(Facebook.class)) {
             return Redirects.AUTH;
         }
         User facebookUser = facebook.userOperations().getUserProfile();
-        logger.debug("Facebook user email: {}", facebookUser.getEmail());
+        AppUser appUser = appUserService.registerOrFind(facebookUser);
+        SecurityUtils.signInUser(appUser);
+        logger.debug("Facebook user email: {}", appUser.getEmail());
         return Redirects.PROFILE;
     }
 
     @GetMapping("/twitter")
     public String authTwitter() {
+        if (SecurityUtils.isAuthenticated()) {
+            return Redirects.PROFILE;
+        }
         if (!connectionService.isTwitterConnected()) {
             return Redirects.AUTH;
         }
@@ -66,6 +80,9 @@ public class AuthController {
 
     @GetMapping("/linkedin")
     public String authLinkedIn() {
+        if (SecurityUtils.isAuthenticated()) {
+            return Redirects.PROFILE;
+        }
         if (!connectionService.isLinkedInConnected()) {
             return Redirects.AUTH;
         }
@@ -76,12 +93,21 @@ public class AuthController {
 
     @GetMapping("/google")
     public String authGoogle() {
+        if (SecurityUtils.isAuthenticated()) {
+            return Redirects.PROFILE;
+        }
         if (!connectionService.isConnected(Google.class)) {
             return Redirects.AUTH;
         }
         Person person = google.plusOperations().getGoogleProfile();
         logger.debug("Google person email: {}", person.getAccountEmail());
         return Redirects.PROFILE;
+    }
+
+    @Inject
+    public void setAppUserService(AppUserService appUserService) {
+        Assert.notNull(appUserService, AppUserService.class);
+        this.appUserService = appUserService;
     }
 
     @Inject

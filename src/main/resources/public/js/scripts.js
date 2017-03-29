@@ -94,17 +94,3 @@ function toggleError(field, message, valid) {
     valid ? error.hide() : error.show();
     field.parent().toggleClass("not-valid", !valid);
 }
-
-function connectTwitter() {
-    $("<form action='/connect/twitter' method='post'></form>").submit();
-}
-
-function connectLinkedIn() {
-    $("<form action='/connect/linkedin' method='post'></form>").submit();
-}
-
-function connectGoogle() {
-    $(  "<form action='/connect/google' method='post'>" +
-            "<input name='scope' value= 'email https://www.googleapis.com/auth/plus.login'>" +
-        "</form>").submit();
-}

@@ -4,17 +4,13 @@ import net.samplelogin.service.ConnectionService;
 import net.samplelogin.util.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.ConnectionRepository;
 import org.springframework.social.linkedin.api.LinkedIn;
 import org.springframework.social.twitter.api.Twitter;
 import org.springframework.stereotype.Service;
-import org.springframework.util.MultiValueMap;
 
 import javax.inject.Inject;
 import java.lang.invoke.MethodHandles;
-import java.util.Arrays;
-import java.util.Objects;
 
 @Service
 public class ConnectionServiceImpl implements ConnectionService {
@@ -37,18 +33,6 @@ public class ConnectionServiceImpl implements ConnectionService {
     @Override
     public boolean isLinkedInConnected() {
         return isConnected(LinkedIn.class);
-    }
-
-    @Override
-    public boolean isAnyConnected(Class<?> ... providers) {
-        if (providers.length > 0) {
-            return Arrays.stream(providers)
-                    .filter(Objects::nonNull)
-                    .anyMatch(this::isConnected);
-        }
-        MultiValueMap<String, Connection<?>> connections = connectionRepository.findAllConnections();
-        logger.debug("{} connections found", connections.size());
-        return !connections.isEmpty();
     }
 
     private void logConnectionStatus(Class<?> provider, boolean connected) {

@@ -13,8 +13,13 @@ import java.lang.invoke.MethodHandles;
 public class ConnectControllerExtended extends ConnectController {
     private static final Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
+    private ConnectionFactoryLocator connectionFactoryLocator;
+    private ConnectionRepository connectionRepository;
+
     public ConnectControllerExtended(ConnectionFactoryLocator locator, ConnectionRepository connectionRepository) {
         super(locator, connectionRepository);
+        this.connectionFactoryLocator = locator;
+        this.connectionRepository = connectionRepository;
     }
 
     @Override

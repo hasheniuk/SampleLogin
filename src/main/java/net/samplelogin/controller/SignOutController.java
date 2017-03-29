@@ -1,8 +1,7 @@
 package net.samplelogin.controller;
 
 import net.samplelogin.util.Assert;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
+import net.samplelogin.util.SecurityUtils;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.social.connect.ConnectionRepository;
 import org.springframework.stereotype.Controller;
@@ -20,13 +19,12 @@ public class SignOutController {
     private ConnectionRepository connectionRepository;
 
     @GetMapping
-    public String logoutPage (HttpServletRequest request, HttpServletResponse response) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth != null) {
+    public String signOut (HttpServletRequest request, HttpServletResponse response) {
+        if (SecurityUtils.isAuthenticated()) {
             connectionRepository.findAllConnections().keySet().forEach(providerId -> {
                 connectionRepository.removeConnections(providerId);
             });
-            new SecurityContextLogoutHandler().logout(request, response, auth);
+            new SecurityContextLogoutHandler().logout(request, response, SecurityUtils.getAuthentication());
         }
         return Redirects.SIGN_OUT;
     }

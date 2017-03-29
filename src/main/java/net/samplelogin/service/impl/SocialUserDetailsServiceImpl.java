@@ -6,8 +6,8 @@ import net.samplelogin.util.Assert;
 import net.samplelogin.util.UserDetailsHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.social.security.SocialUserDetails;
+import org.springframework.social.security.SocialUserDetailsService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,15 +16,15 @@ import java.lang.invoke.MethodHandles;
 
 @Service
 @Transactional
-public class UserDetailsServiceImpl implements UserDetailsService {
+public class SocialUserDetailsServiceImpl implements SocialUserDetailsService {
     private static final Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     private AppUserRepository appUserRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String email) {
+    public SocialUserDetails loadUserByUserId(String email) {
         AppUser appUser = appUserRepository.findByEmail(email);
-        return UserDetailsHelper.toUserDetails(appUser, email);
+        return UserDetailsHelper.toSocialUserDetails(appUser, email);
     }
 
     @Inject
