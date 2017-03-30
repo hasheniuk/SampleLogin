@@ -27,7 +27,7 @@ public class SecurityUtils {
     public static boolean isAuthenticated() {
         Authentication auth = getAuthentication();
         boolean authenticated = !(auth == null || auth.getName().equals(ANONYMOUS_USER_NAME));
-        logger.debug("User {} ", authenticated ? "authenticated" : "not authenticated");
+        logger.debug("User {} {}", auth.getName(), authenticated ? "authenticated" : "not authenticated");
         return authenticated;
     }
 

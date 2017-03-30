@@ -1,7 +1,6 @@
 package net.samplelogin.form;
 
 public class RegistrationForm {
-
     private String email;
     private String password;
     private String confirmPassword;

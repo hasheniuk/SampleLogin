@@ -1,6 +1,7 @@
 package net.samplelogin.controller;
 
 import net.samplelogin.domain.AppUser;
+import net.samplelogin.form.RegistrationForm;
 import net.samplelogin.service.AppUserService;
 import net.samplelogin.service.ConnectionService;
 import net.samplelogin.util.Assert;
@@ -18,6 +19,7 @@ import org.springframework.social.linkedin.api.LinkedInProfile;
 import org.springframework.social.twitter.api.Twitter;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.PostConstruct;
@@ -138,5 +140,11 @@ public class AuthController {
     public void setGoogle(Google google) {
         Assert.notNull(google, Google.class);
         this.google = google;
+    }
+
+    @ModelAttribute("registrationForm")
+    public RegistrationForm loadEmptyRegistrationForm() {
+        logger.debug("Initialized empty registration form");
+        return new RegistrationForm();
     }
 }

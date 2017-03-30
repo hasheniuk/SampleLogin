@@ -14,7 +14,7 @@
 
 <body class="text-muted">
 
-  <section id="signin-section" class="signin-section container">
+  <section id="signin-section" class="signin-section container" th:style="${registration} ? 'display: none;' : 'display: table;'">
     <div class="container signin-container text-center">
       <form class="form-signin" method="post" th:action="@{/auth}+'?'+${_csrf.parameterName}+'='+${_csrf.token}" onsubmit="return validateSigninForm(this);">
         <h1 class="form-signin-heading">Sign In</h1>
@@ -76,32 +76,35 @@
     </div>
   </section>
 
-  <section id="signup-section" class="signup-section container" style="display: none">
+  <section id="signup-section" class="signup-section container" th:style="${registration} ? 'display: table;' : 'display: none;'">
     <div class="container signup-container text-center">
-      <form class="form-signup" method="post" th:action="@{/registration}+'?'+${_csrf.parameterName}+'='+${_csrf.token}" onsubmit="return validateSignupForm(this);">
+      <form th:object="${registrationForm}" class="form-signup" method="post"
+            th:action="@{/registration}+'?'+${_csrf.parameterName}+'='+${_csrf.token}"
+            onsubmit="return validateSignupForm(this);">
         <h1 class="form-signup-heading">Sign Up</h1>
         <small class="connect-msg">Create account:</small>
         <div class="input-group margin-bottom-sm">
           <span class="input-group-addon">
             <i class="fa fa-envelope-o fa-fw"></i>
           </span>
-          <input name="email" type="text" class="form-control" placeholder="Email" autofocus>
+          <input th:field="*{email}" type="text" class="form-control" placeholder="Email" autofocus>
         </div>
-        <p class="error"></p>
+        <p th:errors="*{email}" th:style="${#fields.hasErrors('email')} ? 'display:block' : ''" class="error"></p>
         <div class="input-group margin-bottom-sm">
           <span class="input-group-addon">
             <i class="fa fa-key fa-fw"></i>
           </span>
-          <input id="sign-up-password" name="password" type="password" class="form-control" placeholder="Password">
+          <input id="sign-up-password" th:field="*{password}" type="password" class="form-control" placeholder="Password">
         </div>
-        <p class="error"></p>
+        <p th:errors="*{password}" th:style="${#fields.hasErrors('password')} ? 'display:block' : ''" class="error"></p>
         <div class="input-group margin-bottom-sm">
           <span class="input-group-addon">
             <i class="fa fa-key fa-fw"></i>
           </span>
-          <input name="confirmPassword" type="password" class="form-control" placeholder="Confirm password">
+          <input th:field="*{confirmPassword}" type="password" class="form-control" placeholder="Confirm password">
         </div>
-        <p class="error"></p>
+        <p th:errors="*{confirmPassword}" th:style="${#fields.hasErrors('confirmPassword')} ? 'display:block' : ''" class="error"></p>
+        <!-- TODO enable captcha -->
         <div class="g-recaptcha" data-sitekey="6Lf7ghkUAAAAAHA1qsuYMC41aoAhIepNL0ipVsrn"></div>
         <button type="submit" class="btn btn-primary btn-lg btn-center btn-signin">Sign Up</button>
         <small class="create-account">

@@ -20,7 +20,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         // TODO remove some ant matchers after integration security with social
         http.authorizeRequests()
-                .antMatchers("/", "/css/*", "/js/*", "/connect/*", "/auth/*", "/profile").permitAll()
+                .antMatchers("/", "/css/*", "/js/*", "/connect/*", "/auth/*", "/profile", "/registration").permitAll()
                 .anyRequest().authenticated()
                 .and()
             .formLogin()

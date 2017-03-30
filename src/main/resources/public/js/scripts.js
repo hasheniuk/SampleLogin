@@ -51,7 +51,7 @@ function validateEmail(emailField) {
     var email = emailField.val();
     var re = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
     var errorMessage = "";
-    if (!email || email === "") {
+    if (!email || email.trim() === "") {
         errorMessage = "Email required";
     } else if (!re.test(email)) {
         errorMessage = "Incorrect email";
@@ -65,7 +65,7 @@ function validatePassword(passwordField) {
     var password = passwordField.val();
     var re = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/;
     var errorMessage = "";
-    if (!password || password === "") {
+    if (!password || password.trim() === "") {
         errorMessage = "Password required";
     } else if (!re.test(password)) {
         errorMessage = "Password must contains minimum 8 characters " +
