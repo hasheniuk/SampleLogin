@@ -18,10 +18,8 @@ import javax.inject.Inject;
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-    private UserDetailsService userDetailsService;
 
-    // TODO incorrect credentials error messages on view
-    // TODO configure https or other save password sending
+    private UserDetailsService userDetailsService;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -31,6 +29,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
             .formLogin()
                 .defaultSuccessUrl("/profile")
+                .failureUrl("/signin/failure")
                 .loginPage("/signin")
                 .usernameParameter("email")
                 .passwordParameter("password")

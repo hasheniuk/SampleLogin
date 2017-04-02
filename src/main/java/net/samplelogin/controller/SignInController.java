@@ -18,6 +18,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
@@ -92,6 +93,12 @@ public class SignInController {
         AppUser appUser = appUserService.registerOrFind(person);
         SecurityUtils.signIn(appUser);
         return Redirects.PROFILE;
+    }
+
+    @GetMapping("/failure")
+    public String failure(RedirectAttributes redirectAttributes) {
+        redirectAttributes.addFlashAttribute("failure", true);
+        return Redirects.SIGN_IN;
     }
 
     @Inject

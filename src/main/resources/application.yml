@@ -5,17 +5,17 @@ spring:
     social:
         auto_connection_views: true
         facebook:
-            appId: 402926243408451
-            appSecret: 08fd034a45d214e522e1a43f799d980b
+            appId: ???
+            appSecret: ???
         twitter:
-            appId: c5DR7jVKwvgdBE7uxSF2SZONs
-            appSecret: Z3TRfr7URzyimHiKYAjnwOBnz20AXq6anzLSMYFtFSDPTROlvf
+            appId: ???
+            appSecret: ???
         linkedin:
-            appId: 78g1cfq6ewnbju
-            appSecret: qQgqclTNx7kkPu0R
+            appId: ???
+            appSecret: ???
         google:
-            appId: 366063999039-3s0m207ao69okpuctn2qli66kred3s2o.apps.googleusercontent.com
-            appSecret: DxkZQbUhXw0TL7NPxkKIj3sy
+            appId: ???
+            appSecret: ???
     datasource:
         url: jdbc:h2:mem:sample_login
         driverClassName: org.h2.Driver
@@ -28,6 +28,6 @@ spring:
 security.require_ssl: true
 
 recaptcha.data:
-    sitekey: 6Lf9NBsUAAAAAH7PTUeA2IEyW_uZ5xBfLGArZsAg
-    secret: 6Lf9NBsUAAAAAHVxb9UnII5IZRLG8z7B52HTSi1c
+    sitekey: ???
+    secret: ???
 

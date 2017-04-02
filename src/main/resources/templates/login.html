@@ -51,6 +51,7 @@
           <input name="password" type="password" class="form-control" placeholder="Password" value="123456@q">
         </div>
         <p class="error"></p>
+        <p th:if="${failure}" style="display: block" class="error">Wrong email or password</p>
         <button type="submit" class="btn btn-primary btn-lg btn-center btn-signin">Sign in</button>
         <small class="create-account">
           <span>Don't have an account yet? </span>
