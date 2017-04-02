@@ -26,3 +26,8 @@ spring:
         database-platform: org.hibernate.dialect.H2Dialect
 
 security.require_ssl: true
+
+recaptcha.data:
+    sitekey: 6Lf9NBsUAAAAAH7PTUeA2IEyW_uZ5xBfLGArZsAg
+    secret: 6Lf9NBsUAAAAAHVxb9UnII5IZRLG8z7B52HTSi1c
+

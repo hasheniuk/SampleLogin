@@ -12,7 +12,6 @@ public class AppUser {
     private String role;
     private LocalDate createdAt;
     private boolean confirmed;
-    //TODO add more info
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

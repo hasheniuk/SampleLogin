@@ -104,8 +104,8 @@
           <input th:field="*{confirmPassword}" type="password" class="form-control" placeholder="Confirm password">
         </div>
         <p th:errors="*{confirmPassword}" th:style="${#fields.hasErrors('confirmPassword')} ? 'display:block' : ''" class="error"></p>
-        <!-- TODO enable captcha -->
-        <div class="g-recaptcha" data-sitekey="6Lf7ghkUAAAAAHA1qsuYMC41aoAhIepNL0ipVsrn"></div>
+        <p th:if="${robot}" style="display: block" class="error">Missed the Captcha</p>
+        <div class="g-recaptcha" th:attr="data-sitekey=${@environment.getProperty('recaptcha.data.sitekey')}" ></div>
         <button type="submit" class="btn btn-primary btn-lg btn-center btn-signin">Sign Up</button>
         <small class="create-account">
           <span>Already have an account? </span>

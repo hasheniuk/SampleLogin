@@ -9,4 +9,10 @@ public class Assert {
             throw new IllegalArgumentException(String.format("%s must not be null", referenceType.getSimpleName()));
         }
     }
+
+    public static <E>void notNull(E obj, String message) {
+        if (obj == null) {
+            throw new IllegalArgumentException(message);
+        }
+    }
 }

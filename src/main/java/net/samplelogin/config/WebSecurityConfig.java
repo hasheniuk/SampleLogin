@@ -25,13 +25,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        // TODO remove some ant matchers after integration security with social
         http.authorizeRequests()
                 .antMatchers("/", "/css/*", "/js/*", "/connect/*", "/signin/*", "/registration").permitAll()
                 .anyRequest().authenticated()
                 .and()
             .formLogin()
-                .defaultSuccessUrl("/profile") // TODO add failure url
+                .defaultSuccessUrl("/profile")
                 .loginPage("/signin")
                 .usernameParameter("email")
                 .passwordParameter("password")
