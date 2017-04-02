@@ -21,6 +21,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private UserDetailsService userDetailsService;
 
     // TODO incorrect credentials error messages on view
+    // TODO configure https or other save password sending
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
