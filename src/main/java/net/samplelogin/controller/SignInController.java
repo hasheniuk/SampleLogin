@@ -27,12 +27,11 @@ import javax.inject.Inject;
 import java.lang.invoke.MethodHandles;
 
 @Controller
-@RequestMapping("/auth")
-public class AuthController {
+@RequestMapping("/signin")
+public class SignInController {
     private static final Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     private AppUserService appUserService;
-
     private ConnectionService connectionService;
     private Facebook facebook;
     private Twitter twitter;
@@ -56,14 +55,12 @@ public class AuthController {
     public String authFacebook() {
         if (SecurityUtils.isAuthenticated()) {
             return Redirects.PROFILE;
-        }
-        if (!connectionService.isConnected(Facebook.class)) {
-            return Redirects.AUTH;
+        } else if (!connectionService.isConnected(Facebook.class)) {
+            return Redirects.SIGN_IN;
         }
         User facebookUser = facebook.userOperations().getUserProfile();
         AppUser appUser = appUserService.registerOrFind(facebookUser);
-        SecurityUtils.signInUser(appUser);
-        logger.debug("Facebook user email: {}", appUser.getEmail());
+        SecurityUtils.signIn(appUser);
         return Redirects.PROFILE;
     }
 
@@ -71,12 +68,12 @@ public class AuthController {
     public String authTwitter() {
         if (SecurityUtils.isAuthenticated()) {
             return Redirects.PROFILE;
-        }
-        if (!connectionService.isTwitterConnected()) {
-            return Redirects.AUTH;
+        } else if (!connectionService.isTwitterConnected()) {
+            return Redirects.SIGN_IN;
         }
         TwitterProfileWithEmail twitterProfile = twitter.restOperations().getForObject("https://api.twitter.com/1.1/account/verify_credentials.json?include_email=true", TwitterProfileWithEmail.class);
-        logger.debug("Twitter user email: {}", twitterProfile.getEmail());
+        AppUser appUser = appUserService.registerOrFind(twitterProfile);
+        SecurityUtils.signIn(appUser);
         return Redirects.PROFILE;
     }
 
@@ -84,12 +81,12 @@ public class AuthController {
     public String authLinkedIn() {
         if (SecurityUtils.isAuthenticated()) {
             return Redirects.PROFILE;
-        }
-        if (!connectionService.isLinkedInConnected()) {
-            return Redirects.AUTH;
+        } else if (!connectionService.isLinkedInConnected()) { // TODO check by security utils ???
+            return Redirects.SIGN_IN;
         }
         LinkedInProfile linkedInProfile = linkedIn.profileOperations().getUserProfile();
-        logger.debug("LinkedIn user email: {}", linkedInProfile.getEmailAddress());
+        AppUser appUser = appUserService.registerOrFind(linkedInProfile);
+        SecurityUtils.signIn(appUser);
         return Redirects.PROFILE;
     }
 
@@ -97,12 +94,12 @@ public class AuthController {
     public String authGoogle() {
         if (SecurityUtils.isAuthenticated()) {
             return Redirects.PROFILE;
-        }
-        if (!connectionService.isConnected(Google.class)) {
-            return Redirects.AUTH;
+        } else if (!connectionService.isConnected(Google.class)) {
+            return Redirects.SIGN_IN;
         }
         Person person = google.plusOperations().getGoogleProfile();
-        logger.debug("Google person email: {}", person.getAccountEmail());
+        AppUser appUser = appUserService.registerOrFind(person);
+        SecurityUtils.signIn(appUser);
         return Redirects.PROFILE;
     }
 

@@ -23,8 +23,14 @@ public class ConnectControllerExtended extends ConnectController {
     }
 
     @Override
+    protected String connectView(String providerId) {
+        logger.debug("Redirected provider: {} to signin controller", providerId);
+        return Redirects.SIGN_IN;
+    }
+
+    @Override
     protected String connectedView(String providerId) {
-        logger.debug("Redirected provider: {} to auth controller", providerId);
-        return Redirects.AUTH + "/" + providerId;
+        logger.debug("Redirected provider: {} to signin controller", providerId);
+        return Redirects.SIGN_IN + "/" + providerId;
     }
 }

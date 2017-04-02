@@ -36,10 +36,9 @@ public class ConnectionServiceImpl implements ConnectionService {
     }
 
     private void logConnectionStatus(Class<?> provider, boolean connected) {
-        String user = "[username]"; // TODO log status for user
         String providerName = provider.getSimpleName();
         String status = connected ? "connected" : "disconnected";
-        logger.debug("Current connection: user: {}, provider: {}, status: {}", user, providerName, status);
+        logger.debug("Check existing connection to provider: {}, status: {}", providerName, status);
     }
 
     @Inject

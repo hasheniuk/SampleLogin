@@ -20,7 +20,7 @@ public class IndexController {
             logger.info("redirect to profile page");
             return Redirects.PROFILE;
         }
-        logger.info("redirect to auth page");
-        return Redirects.AUTH;
+        logger.info("redirect to signin page");
+        return Redirects.SIGN_IN;
     }
 }

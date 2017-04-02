@@ -197,3 +197,6 @@ a.disabled {
 .not-valid input:-ms-input-placeholder {
     color: crimson;
 }
+_:-moz-tree-row(hover), .social-login-btn i {
+    vertical-align: middle;
+}

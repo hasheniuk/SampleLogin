@@ -16,7 +16,7 @@
 
   <section id="signin-section" class="signin-section container" th:style="${registration} ? 'display: none;' : 'display: table;'">
     <div class="container signin-container text-center">
-      <form class="form-signin" method="post" th:action="@{/auth}+'?'+${_csrf.parameterName}+'='+${_csrf.token}" onsubmit="return validateSigninForm(this);">
+      <form class="form-signin" method="post" th:action="@{/signin}+'?'+${_csrf.parameterName}+'='+${_csrf.token}" onsubmit="return validateSigninForm(this);">
         <h1 class="form-signin-heading">Sign In</h1>
         <small class="connect-msg">Connect with your favorite social network</small>
         <p>

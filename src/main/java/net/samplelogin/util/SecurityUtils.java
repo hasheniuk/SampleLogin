@@ -17,11 +17,12 @@ public class SecurityUtils {
 
     private SecurityUtils() {}
 
-    public static void signInUser(AppUser appUser) {
+    public static void signIn(AppUser appUser) {
         SocialUserDetails userDetails = UserDetailsHelper.toSocialUserDetails(appUser, appUser.getEmail());
         Authentication authentication =
                 new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(authentication);
+        logger.info("User: {} signed in", authentication.getName());
     }
 
     public static boolean isAuthenticated() {

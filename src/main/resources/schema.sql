@@ -1,7 +1,8 @@
 CREATE TABLE app_user (
   app_user_id INTEGER AUTO_INCREMENT,
   email VARCHAR NOT NULL UNIQUE,
-  password VARCHAR NOT NULL,
+  password VARCHAR,
+  role VARCHAR NOT NULL DEFAULT 'ROLE_USER',
   created_at TIMESTAMP NOT NULL DEFAULT now(),
   confirmed BOOLEAN NOT NULL DEFAULT false,
 );
