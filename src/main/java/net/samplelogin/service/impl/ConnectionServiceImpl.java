@@ -5,6 +5,8 @@ import net.samplelogin.util.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.social.connect.ConnectionRepository;
+import org.springframework.social.facebook.api.Facebook;
+import org.springframework.social.google.api.Google;
 import org.springframework.social.linkedin.api.LinkedIn;
 import org.springframework.social.twitter.api.Twitter;
 import org.springframework.stereotype.Service;
@@ -19,10 +21,8 @@ public class ConnectionServiceImpl implements ConnectionService {
     private ConnectionRepository connectionRepository;
 
     @Override
-    public boolean isConnected(Class<?> provider) {
-        boolean connected = connectionRepository.findConnections(provider) != null;
-        logConnectionStatus(provider, connected);
-        return connected;
+    public boolean isFacebookConnected() {
+        return isConnected(Facebook.class);
     }
 
     @Override
@@ -33,6 +33,17 @@ public class ConnectionServiceImpl implements ConnectionService {
     @Override
     public boolean isLinkedInConnected() {
         return isConnected(LinkedIn.class);
+    }
+
+    @Override
+    public boolean isGoogleConnected() {
+        return isConnected(Google.class);
+    }
+
+    private boolean isConnected(Class<?> provider) {
+        boolean connected = connectionRepository.findConnections(provider) != null;
+        logConnectionStatus(provider, connected);
+        return connected;
     }
 
     private void logConnectionStatus(Class<?> provider, boolean connected) {

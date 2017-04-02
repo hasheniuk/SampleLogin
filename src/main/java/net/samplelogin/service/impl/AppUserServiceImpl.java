@@ -44,7 +44,6 @@ public class AppUserServiceImpl implements AppUserService {
         AppUser user = new AppUser();
         user.setEmail(form.getEmail());
         user.setPassword(passwordEncoder.encode(form.getPassword()));
-        System.out.println(user.getPassword());
         user.setRole(Role.USER);
         user.setCreatedAt(LocalDate.now());
         return user;

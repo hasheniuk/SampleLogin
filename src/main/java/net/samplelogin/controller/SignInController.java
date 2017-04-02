@@ -4,10 +4,7 @@ import net.samplelogin.domain.AppUser;
 import net.samplelogin.form.RegistrationForm;
 import net.samplelogin.service.AppUserService;
 import net.samplelogin.service.ConnectionService;
-import net.samplelogin.util.Assert;
-import net.samplelogin.util.FacebookUtils;
-import net.samplelogin.util.SecurityUtils;
-import net.samplelogin.util.TwitterProfileWithEmail;
+import net.samplelogin.util.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.social.facebook.api.Facebook;
@@ -46,6 +43,7 @@ public class SignInController {
     @GetMapping
     public String getView() {
         if (SecurityUtils.isAuthenticated()) {
+            logger.debug("Redirected to profile signed in user: {}", SecurityUtils.getCurrentUserEmail());
             return Redirects.PROFILE;
         }
         return Views.LOGIN;
@@ -53,9 +51,7 @@ public class SignInController {
 
     @GetMapping("/facebook")
     public String authFacebook() {
-        if (SecurityUtils.isAuthenticated()) {
-            return Redirects.PROFILE;
-        } else if (!connectionService.isConnected(Facebook.class)) {
+        if (!connectionService.isFacebookConnected()) {
             return Redirects.SIGN_IN;
         }
         User facebookUser = facebook.userOperations().getUserProfile();
@@ -66,12 +62,11 @@ public class SignInController {
 
     @GetMapping("/twitter")
     public String authTwitter() {
-        if (SecurityUtils.isAuthenticated()) {
-            return Redirects.PROFILE;
-        } else if (!connectionService.isTwitterConnected()) {
+        if (!connectionService.isTwitterConnected()) {
             return Redirects.SIGN_IN;
         }
-        TwitterProfileWithEmail twitterProfile = twitter.restOperations().getForObject("https://api.twitter.com/1.1/account/verify_credentials.json?include_email=true", TwitterProfileWithEmail.class);
+        TwitterProfileWithEmail twitterProfile = twitter.restOperations()
+                .getForObject(TwitterHelper.TWITTER_INCLUDE_EMAIL_URL, TwitterProfileWithEmail.class);
         AppUser appUser = appUserService.registerOrFind(twitterProfile);
         SecurityUtils.signIn(appUser);
         return Redirects.PROFILE;
@@ -79,9 +74,7 @@ public class SignInController {
 
     @GetMapping("/linkedin")
     public String authLinkedIn() {
-        if (SecurityUtils.isAuthenticated()) {
-            return Redirects.PROFILE;
-        } else if (!connectionService.isLinkedInConnected()) { // TODO check by security utils ???
+        if (!connectionService.isLinkedInConnected()) {
             return Redirects.SIGN_IN;
         }
         LinkedInProfile linkedInProfile = linkedIn.profileOperations().getUserProfile();
@@ -92,9 +85,7 @@ public class SignInController {
 
     @GetMapping("/google")
     public String authGoogle() {
-        if (SecurityUtils.isAuthenticated()) {
-            return Redirects.PROFILE;
-        } else if (!connectionService.isConnected(Google.class)) {
+        if (!connectionService.isGoogleConnected()) {
             return Redirects.SIGN_IN;
         }
         Person person = google.plusOperations().getGoogleProfile();
